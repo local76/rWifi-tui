@@ -386,8 +386,7 @@ dependencies = [
 
 [[package]]
 name = "rcommon"
-version = "1.0.0"
-source = "git+https://github.com/tourian-dynamics/rCommon.git?branch=main#206820feddc2a7c274bd80985da4537ccc00062c"
+version = "1.1.0"
 dependencies = [
  "crossterm",
  "ratatui",
@@ -427,7 +426,7 @@ checksum = "b39cdef0fa800fc44525c84ccb54a029961a8215f9619753635a9c0d2538d46d"
 
 [[package]]
 name = "rwifi"
-version = "2.5.7"
+version = "2.5.8"
 dependencies = [
  "crossterm",
  "qrcodegen",

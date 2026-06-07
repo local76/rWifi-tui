@@ -1,6 +1,6 @@
 [package]
 name = "rwifi"
-version = "2.5.7"
+version = "2.5.8"
 edition = "2024"
 
 [dependencies]
@@ -46,6 +46,5 @@ assets = [
     { source = "packaging/desktop/rwifi.desktop", dest = "/usr/share/applications/rwifi.desktop", mode = "644" }
 ]
 
-# To build locally before pushing rCommon to GitHub, uncomment:
-# [patch."https://github.com/tourian-dynamics/rCommon.git"]
-# rcommon = { path = "../rCommon" }
+[patch."https://github.com/tourian-dynamics/rCommon.git"]
+rcommon = { path = "../rCommon" }

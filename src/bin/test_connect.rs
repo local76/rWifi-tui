@@ -30,7 +30,7 @@ fn main() {
         Err(e) => {
             println!("Result: Err: {}", e);
             println!("Testing log_windows_event...");
-            rcommon::win32::log_windows_event("rWifiTest", 1, 1002, &format!("Failed to connect to FakeSecureWiFi: {}", e));
+            rcommon::event_log::log_system_event("rWifiTest", 1, 1002, &format!("Failed to connect to FakeSecureWiFi: {}", e));
             println!("log_windows_event completed successfully");
         }
     }

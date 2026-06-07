@@ -26,7 +26,17 @@ mod wlan;
 pub use crate::wlan::windows_sys;
 
 mod win32 {
-    pub use rcommon::win32::*;
+    pub use rcommon::clipboard::copy_text_to_clipboard;
+    pub use rcommon::event_log::log_system_event as log_windows_event;
+    pub use rcommon::notification::show_toast_notification;
+    pub use rcommon::sys_info::{
+        query_dark_mode, query_os_version, query_power_status,
+        get_dwm_accent_color, GlyphMap,
+    };
+    pub use rcommon::window::{
+        center_console_window, query_cursor_pos, get_window_rect, set_window_pos,
+        BorderlessConsole, ConsoleTitleGuard, SingleInstanceGuard, relaunch_in_conhost_if_needed,
+    };
     pub use crate::wlan::*;
 }
 mod widgets {

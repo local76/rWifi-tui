@@ -48,7 +48,6 @@ pub fn log_message(level: &str, msg: &str) {
             "WARNING" => 0x0002,         // EVENTLOG_WARNING_TYPE
             _ => 0x0004,                 // EVENTLOG_INFORMATION_TYPE
         };
-        // Write the event using the native win32 module function
-        rcommon::win32::log_windows_event("rwifi", event_type, 1000, msg);
+        rcommon::event_log::log_system_event("rwifi", event_type, 1000, msg);
     }
 }
