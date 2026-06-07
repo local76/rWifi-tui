@@ -204,6 +204,8 @@ struct AppState {
     drag_active: bool,
     drag_start_cursor: Option<(i32, i32)>,
     drag_start_window: Option<(i32, i32)>,
+    is_scanning: bool,
+    scan_rx: Option<std::sync::mpsc::Receiver<Result<Vec<WlanNetwork>, u32>>>,
 }
 
 impl AppState {
@@ -213,6 +215,8 @@ impl AppState {
         Self {
             networks: Vec::new(),
             selected_network_idx: 0,
+            is_scanning: false,
+            scan_rx: None,
             focus: FocusedSection::NetworkList,
             password_box: TextBox::default(),
             show_password_overlay: false,
@@ -281,29 +285,54 @@ impl AppState {
     }
 
     fn scan_wifi(&mut self, force: bool) {
+        if self.is_scanning {
+            return;
+        }
+        self.is_scanning = true;
         self.last_scan = Instant::now();
-        match win32::query_wifi_networks(force) {
-            Ok(nets) => {
-                self.networks = nets;
-                if self.selected_network_idx >= self.networks.len() {
-                    self.selected_network_idx = self.networks.len().saturating_sub(1);
-                }
-                
-                if self.networks.is_empty() {
-                    if let Ok(guid) = win32::get_first_interface_guid() {
-                        if let Ok(state) = win32::query_radio_state(&guid) {
-                            if !state.software_on {
-                                self.set_status("Wi-Fi Radio is Off. Press 't' to turn it On.".to_string(), false);
-                                return;
+
+        if force {
+            self.set_status("Scanning for Wi-Fi networks...".to_string(), false);
+        }
+
+        let (tx, rx) = std::sync::mpsc::channel();
+        self.scan_rx = Some(rx);
+
+        std::thread::spawn(move || {
+            let res = win32::query_wifi_networks(force);
+            let _ = tx.send(res);
+        });
+    }
+
+    fn check_scan_results(&mut self) {
+        if let Some(ref rx) = self.scan_rx {
+            if let Ok(res) = rx.try_recv() {
+                self.is_scanning = false;
+                self.scan_rx = None;
+                match res {
+                    Ok(nets) => {
+                        self.networks = nets;
+                        if self.selected_network_idx >= self.networks.len() {
+                            self.selected_network_idx = self.networks.len().saturating_sub(1);
+                        }
+                        
+                        if self.networks.is_empty() {
+                            if let Ok(guid) = win32::get_first_interface_guid() {
+                                if let Ok(state) = win32::query_radio_state(&guid) {
+                                    if !state.software_on {
+                                        self.set_status("Wi-Fi Radio is Off. Press 't' to turn it On.".to_string(), false);
+                                        return;
+                                    }
+                                }
                             }
                         }
+                        
+                        self.set_status("Wi-Fi network scan completed successfully.".to_string(), false);
+                    }
+                    Err(e) => {
+                        self.set_status(format!("Wi-Fi scan query failed: Code {}", e), true);
                     }
                 }
-                
-                self.set_status("Wi-Fi network scan completed successfully.".to_string(), false);
-            }
-            Err(e) => {
-                self.set_status(format!("Wi-Fi scan query failed: Code {}", e), true);
             }
         }
     }
@@ -354,6 +383,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut last_tick = Instant::now();
 
     while !app.should_quit {
+        app.check_scan_results();
         app.sync_power_status_if_needed();
 
         // Check periodic scanning
@@ -1211,7 +1241,9 @@ fn draw_ui(f: &mut ratatui::Frame, app: &mut AppState, theme: &ThemeColors) {
     let mut list_lines = Vec::new();
     if filtered_nets.is_empty() {
         list_lines.push(Line::from(""));
-        if app.search_active {
+        if app.is_scanning {
+            list_lines.push(Line::from(Span::styled("  Scanning for Wi-Fi networks... Please wait.", Style::default().fg(theme.accent).add_modifier(Modifier::BOLD))));
+        } else if app.search_active {
             list_lines.push(Line::from(Span::styled("  No matching Wi-Fi networks found. Press Esc to clear filter.", Style::default().fg(theme.text_dim))));
         } else {
             list_lines.push(Line::from(Span::styled("  No wireless stations discovered. Press Space to refresh.", Style::default().fg(theme.text_dim))));
