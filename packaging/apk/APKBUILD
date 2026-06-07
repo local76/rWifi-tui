@@ -1,0 +1,19 @@
+# Maintainer: UberMetroid <ubermetroid@users.noreply.github.com>
+pkgname=rwif
+pkgver=TEMPLATE_VERSION
+pkgrel=1
+pkgdesc="A project template for creating unified local terminal utilities in Rust"
+url="https://github.com/local76/rWifi"
+arch="x86_64"
+license="MIT"
+depends=""
+makedepends="cargo"
+source="$pkgname-$pkgver.tar.gz"
+
+build() {
+	cargo build --release --locked
+}
+
+package() {
+	install -Dm755 target/release/rwif "$pkgdir"/usr/bin/rwif
+}

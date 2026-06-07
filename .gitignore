@@ -1,3 +1,4 @@
-/target
-/rtem.exe
-/app.ico
+/target/
+/dist/
+/build_all.ps1
+*.log

@@ -1,0 +1,25 @@
+name: Package Windows MSI
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Build Windows MSI Installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install cargo-wix
+        run: cargo install cargo-wix
+      - name: Build MSI
+        run: cargo wix --wxs packaging/wix/main.wxs
+      - name: Upload MSI to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/wix/*.msi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

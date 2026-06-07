@@ -3,8 +3,8 @@ use std::io::{Read, Write};
 use std::path::Path;
 
 fn main() {
-    let png_path = Path::new("app_icon.png");
-    let ico_path = Path::new("app.ico");
+    let png_path = Path::new("assets/brand/app_icon.png");
+    let ico_path = Path::new("assets/brand/app.ico");
 
     if png_path.exists() {
         let mut png_file = File::open(png_path).expect("failed to open app_icon.png");
@@ -39,11 +39,11 @@ fn main() {
         ico_file.write_all(&png_data).unwrap();
     }
 
-    #[cfg(target_os = "windows")]
-    {
+    let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
+    if target_os == "windows" {
         if ico_path.exists() {
             let mut res = winres::WindowsResource::new();
-            res.set_icon("app.ico");
+            res.set_icon("assets/brand/app.ico");
             res.compile().expect("failed to compile winres resource");
         }
     }

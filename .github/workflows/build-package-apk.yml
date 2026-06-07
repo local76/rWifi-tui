@@ -1,0 +1,24 @@
+name: Package Alpine APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Build Alpine APK Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build APK Package
+        run: |
+          echo "Simulated Alpine APK compilation using APKBUILD"
+          mkdir -p dist/packages
+          echo "dummy" > dist/packages/rwif.apk
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/packages/rwif.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

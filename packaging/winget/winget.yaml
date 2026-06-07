@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://github.com/microsoft/winget-cli/releases/download/v1.6.3133/manifest.singleton.1.6.0.schema.json
+PackageIdentifier: local76.rwif
+PackageVersion: TEMPLATE_VERSION
+PackageName: rWifi
+Publisher: local76
+License: MIT
+ShortDescription: Unified template application for rApps.
+Installers:
+  - Architecture: x64
+    InstallerType: wix
+    InstallerUrl: https://github.com/local76/rWifi/releases/download/vTEMPLATE_VERSION/rwif-TEMPLATE_VERSION-x64.msi
+    InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000 # Replace with actual SHA256 of the MSI installer
+ManifestType: singleton
+ManifestVersion: 1.6.0

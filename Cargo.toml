@@ -6,8 +6,12 @@ edition = "2024"
 [dependencies]
 ratatui = "0.29"
 crossterm = "0.28"
-winreg = "0.56.0"
 sysinfo = "0.30"
+qrcodegen = "1.8.0"
+rcommon = { git = "https://github.com/tourian-dynamics/rCommon.git", branch = "main" }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.56.0"
 windows-sys = { version = "0.59", features = [
     "Win32_Foundation",
     "Win32_NetworkManagement_WiFi",
@@ -18,17 +22,28 @@ windows-sys = { version = "0.59", features = [
     "Win32_UI_WindowsAndMessaging",
     "Win32_UI_HiDpi",
 ] }
-qrcodegen = "1.8.0"
 windows = { version = "0.52.0", features = [
     "Data_Xml_Dom",
     "UI_Notifications",
 ] }
-rcommon = { git = "https://github.com/tourian-dynamics/rCommon.git", branch = "main" }
 
-[build-dependencies]
+[target.'cfg(windows)'.build-dependencies]
 winres = "0.1"
+
+[package.metadata.deb]
+maintainer = "Jeryd <jerydleuck@gmail.com>"
+assets = [
+    ["target/x86_64-unknown-linux-musl/release/rwif", "usr/bin/rwif", "755"],
+    ["assets/brand/app_icon.png", "usr/share/pixmaps/rwif.png", "644"],
+    ["packaging/desktop/rwif.desktop", "usr/share/applications/rwif.desktop", "644"],
+]
+
+[package.metadata.generate-rpm]
+auto-req = "no"
+assets = [
+    { source = "target/x86_64-unknown-linux-musl/release/rwif", dest = "/usr/bin/rwif", mode = "755" }
+]
 
 # To build locally before pushing rCommon to GitHub, uncomment:
 # [patch."https://github.com/tourian-dynamics/rCommon.git"]
 # rcommon = { path = "../rCommon" }
-

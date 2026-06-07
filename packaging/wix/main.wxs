@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+    <Product
+        Id='*'
+        Name='rwif'
+        UpgradeCode='BF2F23A4-1065-4A3C-9A52-AE5A52DDEBD2'
+        Language='1033'
+        Codepage='1252'
+        Version='$(var.Version)'
+        Manufacturer='local76'>
+        
+        <Package
+            Id='*'
+            Keywords='Installer'
+            Description='rWifi'
+            Comments='rWifi unified packaging installer'
+            Manufacturer='local76'
+            InstallerVersion='450'
+            Languages='1033'
+            Compressed='yes'
+            SummaryCodepage='1252'/>
+
+        <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
+        <Property Id='DiskPrompt' Value='rWifi Installation [1]'/>
+
+        <Directory Id='TARGETDIR' Name='SourceDir'>
+            <Directory Id='ProgramFiles64Folder' Name='PFiles'>
+                <Directory Id='APPLICATIONFOLDER' Name='rwif'>
+                    <Component Id='rwif_bin' Guid='BF2F23A4-1065-4A3C-9A52-AE5A52DDEBD3' Win64='yes'>
+                        <File
+                            Id='rwif_exe'
+                            Name='rwif.exe'
+                            DiskId='1'
+                            Source='$(var.CargoTargetBinDir)\rwif.exe'
+                            KeyPath='yes'/>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id='MainProgram' Title='rWifi Application' Level='1'>
+            <ComponentRef Id='rwif_bin'/>
+        </Feature>
+    </Product>
+</Wix>

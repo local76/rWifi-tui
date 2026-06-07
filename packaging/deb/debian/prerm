@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+echo "Preparing to remove rwif..."
+exit 0

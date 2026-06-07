@@ -1,0 +1,22 @@
+# Maintainer: Jeryd <jerydleuck@gmail.com>
+pkgname=rwif
+pkgver=TEMPLATE_VERSION
+pkgrel=1
+pkgdesc="Unified template application for rApps"
+arch=('x86_64')
+url="https://github.com/local76/rWifi"
+license=('MIT')
+depends=('libc')
+makedepends=('rust' 'cargo')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/local76/rWifi/archive/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --release
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 "target/release/rwif" "${pkgdir}/usr/bin/rwif"
+}

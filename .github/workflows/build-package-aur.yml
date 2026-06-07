@@ -1,0 +1,16 @@
+name: Package Arch AUR
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Publish Arch AUR Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish to AUR
+        run: |
+          echo "Simulating upload of PKGBUILD to AUR repository"

@@ -22,6 +22,9 @@ mod input;
 mod logger;
 mod wlan;
 
+#[cfg(not(windows))]
+pub use crate::wlan::windows_sys;
+
 mod win32 {
     pub use rcommon::win32::*;
     pub use crate::wlan::*;

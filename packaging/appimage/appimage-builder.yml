@@ -1,0 +1,24 @@
+version: 1
+AppDir:
+  path: ./AppDir
+  app_info:
+    id: org.local76.rwif
+    name: rwif
+    icon: rwif
+    version: TEMPLATE_VERSION
+    exec: usr/bin/rwif
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ focal main universe'
+    include:
+      - libc6
+      - libgcc-s1
+  files:
+    include: []
+    exclude: []
+
+AppImage:
+  update-information: 'none'
+  sign-key: 'none'
+  arch: x86_64

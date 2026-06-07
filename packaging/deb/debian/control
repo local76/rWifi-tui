@@ -1,0 +1,7 @@
+Package: rwif
+Version: TEMPLATE_VERSION
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: UberMetroid <ubermetroid@users.noreply.github.com>
+Description: A project template for creating unified local terminal utilities in Rust

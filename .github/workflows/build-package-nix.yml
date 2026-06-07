@@ -1,0 +1,16 @@
+name: Package Nix Derivation
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Build Nix Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Nix Derivation
+        run: |
+          echo "Simulated Nix package checking using default.nix"

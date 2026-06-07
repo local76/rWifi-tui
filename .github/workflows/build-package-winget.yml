@@ -1,0 +1,16 @@
+name: Package WinGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Submit WinGet Manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Submit to WinGet
+        run: |
+          echo "Simulating submission of winget.yaml to winget-pkgs repository"

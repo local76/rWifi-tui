@@ -1,0 +1,24 @@
+name: Package Flatpak
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Build Flatpak Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Flatpak
+        run: |
+          echo "Simulated Flatpak builder using manifest"
+          mkdir -p dist/packages
+          echo "dummy" > dist/packages/rwif.flatpak
+      - name: Upload Flatpak to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/packages/rwif.flatpak
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

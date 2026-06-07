@@ -1,6 +1,9 @@
 #[path = "../wlan.rs"]
 mod wlan;
 
+#[cfg(not(windows))]
+use wlan::windows_sys;
+
 fn main() {
     println!("Testing connect_to_wifi with a fake network to check for crashes...");
     let fake_guid = windows_sys::core::GUID {

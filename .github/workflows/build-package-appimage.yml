@@ -1,0 +1,24 @@
+name: Package AppImage
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    name: Build Linux AppImage Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build AppImage
+        run: |
+          echo "Simulated AppImage compilation using appimage-builder"
+          mkdir -p dist/packages
+          echo "dummy" > dist/packages/rwif.appimage
+      - name: Upload AppImage to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/packages/rwif.appimage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
