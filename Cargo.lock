@@ -386,7 +386,7 @@ dependencies = [
 
 [[package]]
 name = "rcommon"
-version = "1.1.0"
+version = "3.0.16"
 dependencies = [
  "crossterm",
  "ratatui",
@@ -425,7 +425,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b39cdef0fa800fc44525c84ccb54a029961a8215f9619753635a9c0d2538d46d"
 
 [[package]]
-name = "rwifi"
+name = "rwifi-tui"
 version = "2.5.8"
 dependencies = [
  "crossterm",

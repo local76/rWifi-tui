@@ -34,7 +34,7 @@ impl AppConfig {
     pub fn config_path() -> Option<PathBuf> {
         std::env::var("APPDATA").ok().map(|appdata| {
             std::path::PathBuf::from(appdata)
-                .join("rWifi")
+                .join("rWifi-tui")
                 .join("config.yaml")
         })
     }

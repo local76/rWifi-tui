@@ -1,5 +1,5 @@
 [package]
-name = "rwifi"
+name = "rwifi-tui"
 version = "2.5.8"
 edition = "2024"
 
@@ -8,7 +8,7 @@ ratatui = "0.29"
 crossterm = "0.28"
 sysinfo = "0.30"
 qrcodegen = "1.8.0"
-rcommon = { git = "https://github.com/tourian-dynamics/rCommon.git", branch = "main" }
+rcommon = { git = "https://github.com/local76/rCommon.git", branch = "main", features = ["widgets", "sys-info", "window", "clipboard", "notification", "event-log"] }
 
 [target.'cfg(windows)'.dependencies]
 winreg = "0.56.0"
@@ -33,18 +33,18 @@ winres = "0.1"
 [package.metadata.deb]
 maintainer = "Jeryd <jerydleuck@gmail.com>"
 assets = [
-    ["target/x86_64-unknown-linux-musl/release/rwifi", "usr/bin/rwifi", "755"],
-    ["assets/brand/app_icon.png", "usr/share/pixmaps/rwifi.png", "644"],
-    ["packaging/desktop/rwifi.desktop", "usr/share/applications/rwifi.desktop", "644"],
+    ["target/x86_64-unknown-linux-musl/release/rwifi-tui", "usr/bin/rwifi-tui", "755"],
+    ["assets/brand/app_icon.png", "usr/share/pixmaps/rwifi-tui.png", "644"],
+    ["packaging/desktop/rwifi-tui.desktop", "usr/share/applications/rwifi-tui.desktop", "644"],
 ]
 
 [package.metadata.generate-rpm]
 auto-req = "no"
 assets = [
-    { source = "target/x86_64-unknown-linux-musl/release/rwifi", dest = "/usr/bin/rwifi", mode = "755" },
-    { source = "assets/brand/app_icon.png", dest = "/usr/share/pixmaps/rwifi.png", mode = "644" },
-    { source = "packaging/desktop/rwifi.desktop", dest = "/usr/share/applications/rwifi.desktop", mode = "644" }
+    { source = "target/x86_64-unknown-linux-musl/release/rwifi-tui", dest = "/usr/bin/rwifi-tui", mode = "755" },
+    { source = "assets/brand/app_icon.png", dest = "/usr/share/pixmaps/rwifi-tui.png", mode = "644" },
+    { source = "packaging/desktop/rwifi-tui.desktop", dest = "/usr/share/applications/rwifi-tui.desktop", mode = "644" }
 ]
 
-[patch."https://github.com/tourian-dynamics/rCommon.git"]
+[patch."https://github.com/local76/rCommon.git"]
 rcommon = { path = "../rCommon" }
