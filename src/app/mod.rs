@@ -78,11 +78,17 @@ pub struct AppState {
     pub drag_start_window: Option<(i32, i32)>,
     pub is_scanning: bool,
     pub scan_rx: Option<std::sync::mpsc::Receiver<Result<Vec<WlanNetwork>, u32>>>,
+    pub username: String,
+    pub hostname: String,
+    pub os_version: String,
 }
 
 impl AppState {
     pub fn new() -> Self {
         let on_battery = win32::query_power_status().map(|p| !p.ac_online).unwrap_or(false);
+        let username = std::env::var("USERNAME").unwrap_or_else(|_| "user".to_string());
+        let hostname = std::env::var("COMPUTERNAME").unwrap_or_else(|_| "localhost".to_string());
+        let os_version = win32::query_os_version();
 
         Self {
             networks: Vec::new(),
@@ -130,6 +136,9 @@ impl AppState {
             drag_active: false,
             drag_start_cursor: None,
             drag_start_window: None,
+            username,
+            hostname,
+            os_version,
         }
     }
 

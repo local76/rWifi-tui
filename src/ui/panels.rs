@@ -14,9 +14,9 @@ use crate::ui::ThemeColors;
 use crate::win32;
 
 pub fn draw_header(f: &mut Frame, app: &mut AppState, theme: &ThemeColors, area: Rect) {
-    let username = std::env::var("USERNAME").unwrap_or_else(|_| "user".to_string());
-    let hostname = std::env::var("COMPUTERNAME").unwrap_or_else(|_| "localhost".to_string());
-    let os_version = win32::query_os_version();
+    let username = &app.username;
+    let hostname = &app.hostname;
+    let os_version = app.os_version.clone();
 
     let header_block = Block::default()
         .borders(Borders::ALL)
