@@ -6,7 +6,7 @@ use crate::app::AppState;
 use crate::win32;
 
 pub fn handle_mouse(app: &mut AppState, mouse_event: crossterm::event::MouseEvent) {
-    let (term_w, term_h) = ratatui::crossterm::terminal::size().unwrap_or((100, 35));
+    let (term_w, term_h) = crossterm::terminal::size().unwrap_or((100, 35));
 
     // Calculate layout regions matching draw_ui
     let chunks = ratatui::layout::Layout::default()

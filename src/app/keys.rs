@@ -316,7 +316,7 @@ pub fn handle_keypress(app: &mut AppState, code: KeyCode, theme: &ThemeColors) {
                 app.markdown_scroll = app.markdown_scroll.saturating_sub(1);
             }
             KeyCode::Down | KeyCode::Char('j') => {
-                let (_, term_h) = ratatui::crossterm::terminal::size().unwrap_or((110, 38));
+                let (_, term_h) = crossterm::terminal::size().unwrap_or((110, 38));
                 let inner_h = ((term_h * 80) / 100).saturating_sub(2) as usize;
                 let max_scroll = app.markdown_lines.len().saturating_sub(inner_h);
                 if app.markdown_scroll < max_scroll {
