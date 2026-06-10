@@ -9,6 +9,7 @@ use library::lifecycle::background::file_log::log_message;
 use crate::win32::{self, WlanNetwork, GlyphMap};
 
 pub mod keys;
+pub mod keys_overlays;
 pub mod mouse;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
