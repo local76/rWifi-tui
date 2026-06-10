@@ -1,4 +1,4 @@
-//! UI module initialization, themes, and primary drawing entry point.
+﻿//! UI module initialization, themes, and primary drawing entry point.
 //!
 //! **Taxonomy Classification**: UI Rendering (UI Dispatcher).
 
@@ -16,7 +16,8 @@ pub mod overlays;
 pub mod layout;
 pub mod accent_gauge;
 
-pub use library::interface::app::design::prelude::{ThemeColors, get_theme, parse_markdown_to_lines};
+pub use library::ui::theme::{ThemeColors, get_theme};
+pub use library::ui::markdown::parse_markdown_to_lines;
 
 pub fn draw_ui(f: &mut Frame, app: &mut AppState, theme: &ThemeColors) {
     let size = f.area();

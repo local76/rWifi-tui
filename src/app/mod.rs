@@ -1,11 +1,11 @@
-//! Application state structures and state transitions.
+﻿//! Application state structures and state transitions.
 //!
 //! **Taxonomy Classification**: Business Logic (AppState).
 
 use std::time::{Duration, Instant};
 use ratatui::text::Line;
-use library::interface::app::widgets::TextBox;
-use library::lifecycle::background::file_log::log_message;
+use library::ui::textbox::TextBox;
+use library::apps::file_log::log_message;
 use crate::win32::{self, WlanNetwork, GlyphMap};
 
 pub mod keys;

@@ -1,4 +1,4 @@
-#![allow(deprecated)]
+﻿#![allow(deprecated)]
 //! scout: Terminal User Interface WiFi network manager for Windows.
 //!
 //! **Taxonomy Classification**: Application Coordinator.
@@ -7,7 +7,7 @@ use std::time::{Duration, Instant};
 
 use crossterm::event::{self, Event, KeyEventKind};
 use library::apps::tui_bootstrap::{bootstrap_tui, shutdown_tui, TuiBootstrapConfig};
-use library::lifecycle::background::file_log::{log_message, set_event_log_enabled, set_log_app_name};
+use library::apps::file_log::{log_message, set_event_log_enabled, set_log_app_name};
 
 mod config;
 mod backend;
@@ -47,7 +47,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(windows)]
     {
-        library::show_console_window();
+        library::apps::window::show_console_window();
     }
 
     let mut app = app::AppState::new();
