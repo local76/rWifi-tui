@@ -33,7 +33,7 @@ embed-resource = "2"
 [package.metadata.deb]
 maintainer = "Jeryd <jerydleuck@gmail.com>"
 assets = [
-    ["target/x86_64-unknown-linux-musl/release/scout", "usr/bin/scout", "755"],
+    ["target/release/scout", "usr/bin/scout", "755"],
     ["assets/brand/app_icon.png", "usr/share/pixmaps/scout.png", "644"],
     ["packaging/desktop/scout.desktop", "usr/share/applications/scout.desktop", "644"],
 ]

@@ -40,6 +40,7 @@ impl AccentGauge {
     }
 
     /// First-class constructor using the bundled `AccentColors`.
+    #[allow(dead_code)]
     pub fn new_with_colors(
         progress: f64,
         label: &str,

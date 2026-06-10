@@ -4,7 +4,7 @@
 
 use std::time::{Duration, Instant};
 use ratatui::text::Line;
-use library::interface::tui::widgets::TextBox;
+use library::interface::app::widgets::TextBox;
 use library::lifecycle::background::file_log::log_message;
 use crate::win32::{self, WlanNetwork, GlyphMap};
 

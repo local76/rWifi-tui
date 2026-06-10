@@ -16,7 +16,7 @@ pub mod overlays;
 pub mod layout;
 pub mod accent_gauge;
 
-pub use library::interface::tui::design::prelude::{ThemeColors, get_theme, parse_markdown_to_lines};
+pub use library::interface::app::design::prelude::{ThemeColors, get_theme, parse_markdown_to_lines};
 
 pub fn draw_ui(f: &mut Frame, app: &mut AppState, theme: &ThemeColors) {
     let size = f.area();

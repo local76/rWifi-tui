@@ -5,7 +5,7 @@
 use ratatui::layout::Rect;
 
 #[allow(unused_imports)]
-pub use library::interface::tui::design::prelude::{centered_rect, wrap_text};
+pub use library::interface::app::design::prelude::{centered_rect, wrap_text};
 
 /// Fixed-size layout helper to center a popup.
 pub fn centered_rect_fixed(width: u16, height: u16, r: Rect) -> Rect {
