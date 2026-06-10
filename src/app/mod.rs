@@ -186,8 +186,8 @@ impl AppState {
     }
 
     pub fn check_scan_results(&mut self) {
-        if let Some(ref rx) = self.scan_rx {
-            if let Ok(res) = rx.try_recv() {
+        if let Some(ref rx) = self.scan_rx
+            && let Ok(res) = rx.try_recv() {
                 self.is_scanning = false;
                 self.scan_rx = None;
                 match res {
@@ -197,16 +197,13 @@ impl AppState {
                             self.selected_network_idx = self.networks.len().saturating_sub(1);
                         }
                         
-                        if self.networks.is_empty() {
-                            if let Ok(guid) = win32::get_first_interface_guid() {
-                                if let Ok(state) = win32::query_radio_state(&guid) {
-                                    if !state.software_on {
+                        if self.networks.is_empty()
+                            && let Ok(guid) = win32::get_first_interface_guid()
+                                && let Ok(state) = win32::query_radio_state(&guid)
+                                    && !state.software_on {
                                         self.set_status("Wi-Fi Radio is Off. Press 't' to turn it On.".to_string(), false);
                                         return;
                                     }
-                                }
-                            }
-                        }
                         
                         self.set_status("Wi-Fi network scan completed successfully.".to_string(), false);
                     }
@@ -215,6 +212,5 @@ impl AppState {
                     }
                 }
             }
-        }
     }
 }

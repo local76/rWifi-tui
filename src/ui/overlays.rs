@@ -1,3 +1,4 @@
+#![allow(clippy::vec_init_then_push)]
 //! Overlay popups and modal dialogues drawing functions.
 //!
 //! **Taxonomy Classification**: UI Rendering (UI Overlays).

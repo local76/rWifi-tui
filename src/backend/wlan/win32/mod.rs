@@ -288,11 +288,10 @@ pub fn query_saved_password(ssid: &str) -> Option<String> {
         let stdout = String::from_utf8_lossy(&output.stdout);
         for line in stdout.lines() {
             let trimmed = line.trim();
-            if trimmed.contains("Key Content") || trimmed.contains("Contenido de la clave") || trimmed.contains("Schlüsselinhalt") || trimmed.contains("Contenu de la") {
-                if let Some(pos) = trimmed.find(':') {
+            if (trimmed.contains("Key Content") || trimmed.contains("Contenido de la clave") || trimmed.contains("Schlüsselinhalt") || trimmed.contains("Contenu de la"))
+                && let Some(pos) = trimmed.find(':') {
                     return Some(trimmed[pos + 1..].trim().to_string());
                 }
-            }
         }
     }
     None
@@ -336,11 +335,10 @@ pub fn query_saved_profiles() -> Result<Vec<(String, windows_sys::core::GUID)>, 
             for j in 0..profile_list_ref.dwNumberOfItems as usize {
                 let profile_info = unsafe { *profile_list_ref.ProfileInfo.as_ptr().add(j) };
                 let len = profile_info.strProfileName.iter().position(|&c| c == 0).unwrap_or(profile_info.strProfileName.len());
-                if let Ok(name) = String::from_utf16(&profile_info.strProfileName[..len]) {
-                    if !name.is_empty() {
+                if let Ok(name) = String::from_utf16(&profile_info.strProfileName[..len])
+                    && !name.is_empty() {
                         profiles.push((name, interface_info.InterfaceGuid));
                     }
-                }
             }
             unsafe { WlanFreeMemory(profile_list as *mut _) };
         }

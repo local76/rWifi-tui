@@ -49,9 +49,9 @@ pub fn generate_qr_code_lines(ssid: &str, password: &str, auth_type: &str) -> Ve
     for y_idx in (0..total_size).step_by(2) {
         let mut line = String::new();
         for x_idx in 0..total_size {
-            let x = x_idx as i32 - border;
-            let y1 = y_idx as i32 - border;
-            let y2 = y_idx as i32 + 1 - border;
+            let x = x_idx - border;
+            let y1 = y_idx - border;
+            let y2 = y_idx + 1 - border;
             
             let val1 = if x >= 0 && x < size && y1 >= 0 && y1 < size {
                 qr.get_module(x, y1)

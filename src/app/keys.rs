@@ -124,8 +124,8 @@ pub fn handle_keypress(app: &mut AppState, code: KeyCode, theme: &ThemeColors) {
                     app.profiles_selected_idx += 1;
                 }
             }
-            KeyCode::Char('d') | KeyCode::Char('D') | KeyCode::Delete => {
-                if !app.profiles_list.is_empty() {
+            KeyCode::Char('d') | KeyCode::Char('D') | KeyCode::Delete
+                if !app.profiles_list.is_empty() => {
                     let (name, guid) = app.profiles_list[app.profiles_selected_idx].clone();
                     app.set_status(format!("Deleting offline profile {}...", name), false);
                     match win32::delete_wifi_profile(&name, &guid) {
@@ -143,7 +143,6 @@ pub fn handle_keypress(app: &mut AppState, code: KeyCode, theme: &ThemeColors) {
                         }
                     }
                 }
-            }
             _ => {}
         }
         return;
@@ -307,7 +306,7 @@ pub fn handle_keypress(app: &mut AppState, code: KeyCode, theme: &ThemeColors) {
         return;
     }
 
-    if let Some(_) = app.show_markdown {
+    if app.show_markdown.is_some() {
         match code {
             KeyCode::Esc | KeyCode::Char('q') | KeyCode::Char('Q') => {
                 app.show_markdown = None;
