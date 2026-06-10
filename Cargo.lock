@@ -666,6 +666,7 @@ name = "library"
 version = "2026.6.11"
 dependencies = [
  "crossterm",
+ "libc",
  "ratatui",
  "rusqlite",
  "sysinfo",
