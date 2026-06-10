@@ -30,19 +30,5 @@ windows = { version = "0.52.0", features = [
 [target.'cfg(windows)'.build-dependencies]
 embed-resource = "2"
 
-[package.metadata.deb]
-maintainer = "Jeryd <jerydleuck@gmail.com>"
-assets = [
-    ["target/x86_64-unknown-linux-musl/release/scout", "usr/bin/scout", "755"],
-    ["assets/brand/app_icon.png", "usr/share/pixmaps/scout.png", "644"],
-    ["packaging/desktop/scout.desktop", "usr/share/applications/scout.desktop", "644"],
-]
 
-[package.metadata.generate-rpm]
-auto-req = "no"
-assets = [
-    { source = "target/x86_64-unknown-linux-musl/release/scout", dest = "/usr/bin/scout", mode = "755" },
-    { source = "assets/brand/app_icon.png", dest = "/usr/share/pixmaps/scout.png", mode = "644" },
-    { source = "packaging/desktop/scout.desktop", dest = "/usr/share/applications/scout.desktop", mode = "644" }
-]
 
