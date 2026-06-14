@@ -74,7 +74,19 @@ mod fallback_impl {
     pub fn query_accent_color() -> (u8, u8, u8) { (0, 245, 255) }
     pub fn get_win_accent_color_hex() -> String { "#00F5FF".to_string() }
     pub fn query_high_contrast() -> bool { false }
-    pub fn query_os_version() -> String { "Mock OS".to_string() }
+    pub fn query_os_version() -> String {
+        if let Ok(content) = std::fs::read_to_string("/etc/os-release") {
+            for line in content.lines() {
+                if line.starts_with("PRETTY_NAME=") {
+                    let val = line.split('=').nth(1).unwrap_or("").trim_matches('"');
+                    if !val.is_empty() {
+                        return val.to_string();
+                    }
+                }
+            }
+        }
+        "Linux".to_string()
+    }
     pub fn query_dark_mode() -> bool { true }
     pub fn query_power_status() -> Option<PowerStatus> {
         Some(PowerStatus {
